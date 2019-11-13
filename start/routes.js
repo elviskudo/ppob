@@ -16,4 +16,28 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
+
 Route.on('/').render('welcome')
+Route.get('/test',function () {
+    return 'hi,dusun web'
+})
+
+Route.get('/namamu/:id', ({params}) => {
+    return params.id
+})
+
+
+Route.get('/checkout',function () {
+    return 'hi,ini checkout'
+}
+)
+
+Route.resource('users', 'UserController')
+Route.resource('products', 'ProductController')
+Route.resource('invoices', 'InvoiceController')
+Route.resource('logs', 'LogController')
+Route.resource('profiles','ProfileController')
+Route.resource('menus', 'MenuController')
+Route.resource('transactions', 'TransactionController')
+Route.resource('roles', 'RoleController')
+Route.resource('addnotifications', 'AddnotificationController')
