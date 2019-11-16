@@ -17,3 +17,14 @@
 const Route = use('Route')
 
 Route.on('/').render('welcome')
+Route.get('/test', function () {
+    return 'hi dusun web'
+})
+Route.get('/namamu/:name', ({ params }) => {
+    return params.name
+})
+Route.get('/details/:id', ({ params }) => {
+    return params.id
+})
+Route.resource('users', 'UserController')
+Route.resource('products', 'ProductController')
