@@ -27,6 +27,13 @@ Route.get('/checkout', function () {
     return 'hi,ini checkout'
 })
 
+Route.post('api/jwt/login', 'AuthController.postLoginJwt').as('login.jwt')
+Route.post('api/jwt/register', 'AuthController.postRegister')
+Route.post('api/jwt/refresh', 'AuthController.postRefreshTokenJwt').as('refreshTokenJwt').middleware(['auth:jwt'])
+Route.post('api/jwt/logout', 'AuthController.postLogoutJwt').as('logoutJwt').middleware(['auth:jwt'])
+Route.get('api/jwt/profile', 'AuthController.getProfileJwt').as('profileJwt').middleware(['auth:jwt'])
+
+
 Route.resource('users', 'UserController')
 Route.resource('products', 'ProductController')
 Route.resource('invoices', 'InvoiceController')
