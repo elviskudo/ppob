@@ -4,15 +4,15 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const Product = use('App/Models/Product')
+const Profile = use('App/Models/Profile')
 
 /**
- * Resourceful controller for interacting with products
+ * Resourceful controller for interacting with profilejs
  */
-class ProductController {
+class ProfileJController {
   /**
-   * Show a list of all products.
-   * GET products
+   * Show a list of all profilejs.
+   * GET profilejs
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -20,14 +20,13 @@ class ProductController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-      const model = await Product.all()
-  
-      return response.status(200).json(model)
-    }
-  
+    const model = await Profile.all()
+    return response.status(200).json(model)
+  }
+
   /**
-   * Render a form to be used for creating a new product.
-   * GET products/create
+   * Render a form to be used for creating a new profilej.
+   * GET profilejs/create
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -38,22 +37,21 @@ class ProductController {
   }
 
   /**
-   * Create/save a new product.
-   * POST products
+   * Create/save a new profilej.
+   * POST profilejs
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
-    const model = await Product.create(request.all())
-
+    const model = await Profile.create(request.all())
     return response.json(model)
   }
-  
+
   /**
-   * Display a single product.
-   * GET products/:id
+   * Display a single profilej.
+   * GET profilejs/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -61,14 +59,13 @@ class ProductController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
-    const model = await Product.find(params.id)
-
+    const model = await Profile.find(params.id)
     return response.json(model)
   }
 
   /**
-   * Render a form to update an existing product.
-   * GET products/:id/edit
+   * Render a form to update an existing profilej.
+   * GET profilejs/:id/edit
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -76,51 +73,46 @@ class ProductController {
    * @param {View} ctx.view
    */
   async edit ({ params, request, response, view }) {
-    
   }
 
   /**
-   * Update product details.
-   * PUT or PATCH products/:id
+   * Update profilej details.
+   * PUT or PATCH profilejs/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
-    const model = await Product.find(params.id)
+    const model = await Profile.find(params.id)
 
-    model.name = request.input('name')
-    model.description = request.input('description')
-
+    model.user_id = request.input('user_id')
+    model.phone = request.input('phone')
+    model.address = requset.input('address')
+    model.city = request.input('city')
+    model.region = request.input('region')
+    model.country = requset.input('country')
+  
     await model.save()
-
-    return response.json(model)
   }
 
   /**
-   * Delete a product with id.
-   * DELETE products/:id
+   * Delete a profilej with id.
+   * DELETE profilejs/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
-    const model = await Product.find(params.id)
+    const model = await Profile.find(params.id)
+    if (model.delete()) {
+      return response.json ({
+        message: "Profile has been delete"
+      })
 
-    if (model) {
-      await model.delete()
-      
-      return response.json({
-        message: 'Product sudah berhasil terhapus'
-      })
-    } else {
-      return response.json({
-        message: 'Product tidak ketemu'
-      })
     }
   }
 }
 
-module.exports = ProductController
+module.exports = ProfileJController
