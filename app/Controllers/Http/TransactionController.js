@@ -115,4 +115,4 @@ class TransactionController {
   }
 }
 
-module.exports = TransactionJController
+module.exports = TransactionController
