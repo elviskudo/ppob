@@ -22,8 +22,8 @@ Route.get('/test',function () {
     return 'hi,dusun web'
 })
 
-Route.get('/namamu/:id', ({params}) => {
-    return params.id
+Route.get('/namamu/:name', ({params}) => {
+    return params.name
 })
 
 
@@ -34,16 +34,23 @@ Route.get('/checkout',function () {
 
 Route.post('api/jwt/login', 'AuthController.postLoginJwt').as('loginJwt')
 Route.post('api/jwt/register', 'AuthController.postRegister')
-Route.post('api/jwt/refresh', 'AuthController.postRefreshTokenJwt').as('refreshTokenJwt').middleware(['auth:jwt'])
-Route.post('api/jwt/logout', 'AuthController.postLogoutJwt').as('loginJwt').middleware(['auth:jwt'])
-Route.get('api/jwt/profile', 'AuthController.getProfileJwt').as('profileJwt').middleware(['auth:jwt'])
 
-Route.resource('users', 'UserController')
-Route.resource('products', 'ProductController')
-Route.resource('invoices', 'InvoiceController')
-Route.resource('logs', 'LogController')
-Route.resource('profiles','ProfileController')
-Route.resource('menus', 'MenuController')
-Route.resource('transactions', 'TransactionController')
-Route.resource('roles', 'RoleController')
-Route.resource('addnotifications', 'AddnotificationController')
+Route.group(()=> {
+    //auth route
+    Route.post('api/jwt/refresh', 'AuthController.postRefreshTokenJwt').as('refreshTokenJwt')
+    Route.post('api/jwt/logout', 'AuthController.postLogoutJwt').as('loginJwt')
+    Route.get('api/jwt/profile', 'AuthController.getProfileJwt').as('profileJwt')
+    
+    //other route
+    Route.resource('users', 'UserController')
+    Route.resource('products', 'ProductController')
+    Route.resource('invoices', 'InvoiceController')
+    Route.resource('logs', 'LogController')
+    Route.resource('profiles','ProfileController')
+    Route.resource('menus', 'MenuController')
+    Route.resource('transactions', 'TransactionController')
+    Route.resource('roles', 'RoleController')
+    Route.resource('addnotifications', 'AddnotificationController')
+}).middleware(['auth:jwt'])
+
+

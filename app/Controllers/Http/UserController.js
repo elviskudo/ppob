@@ -22,7 +22,13 @@ class UserController {
   async index ({ request, response, view }) {
     const model = await User.all()
 
-    return response.status(200).json(model)
+    return response.status(200).json({
+      status: 200,
+      message: 'succes',
+      data: model,
+      meta: null
+    }
+    )
   }
 
   /**
@@ -73,6 +79,15 @@ class UserController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
+    const model = await User.find(params.id)
+
+    return response.status(200).json({
+      status: 200,
+      message: 'succes',
+      data: model,
+      meta: null
+    }
+    )
   }
 
   /**
